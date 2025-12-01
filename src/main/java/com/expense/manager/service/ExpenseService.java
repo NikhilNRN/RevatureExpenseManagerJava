@@ -81,3 +81,8 @@ public class ExpenseService {
             return new ArrayList<>();
         }
     }
+
+    public double calculateTotal(List<Expense> expenses) {
+        return expenses.stream().mapToDouble(Expense::getAmount).sum();
+    }
+}
