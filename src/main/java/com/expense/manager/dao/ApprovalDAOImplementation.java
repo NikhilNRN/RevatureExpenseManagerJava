@@ -39,3 +39,24 @@ public class ApprovalDAOImplementation implements ApprovalDAO
             return null;
         }
     }
+
+    @Override
+    public void updateApproval(int expenseId, String status, int reviewerId, String comment, String reviewDate) throws Exception
+    {
+        String query = "UPDATE approvals SET status = ?, reviewer = ?, comment = ?, review_date = ? WHERE expense_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query))
+        {
+            stmt.setString(1, status);
+            stmt.setInt(2, reviewerId);
+            stmt.setString(3, comment);
+            stmt.setString(4, reviewDate);
+            stmt.setInt(5, expenseId);
+
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected == 0)
+            {
+                throw new Exception("No approval found for expense ID: " + expenseId);
+            }
+        }
+    }
+}
