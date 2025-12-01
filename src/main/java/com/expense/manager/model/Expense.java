@@ -17,3 +17,15 @@ public class Expense
         this.description = description;
         this.date = date;
     }
+
+    public int getId() { return id; }
+    public int getUserId() { return userId; }
+    public double getAmount() { return amount; }
+    public String getDescription() { return description; }
+    public String getDate() { return date; }
+    public String getEmployeeName() { return employeeName; }
+    public String getStatus() { return status; }
+
+    public void setEmployeeName(String name) { this.employeeName = name; }
+    public void setStatus(String status) { this.status = status; }
+}
