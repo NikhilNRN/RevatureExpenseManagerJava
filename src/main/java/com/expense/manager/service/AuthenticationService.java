@@ -9,3 +9,13 @@ public class AuthenticationService {
     public AuthenticationService(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
+
+    public User login(String username, String password) {
+        try {
+            return userDAO.authenticate(username, password);
+        } catch (Exception e) {
+            System.err.println("Service Error - Authentication failed: " + e.getMessage());
+            return null;
+        }
+    }
+}
