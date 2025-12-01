@@ -1,5 +1,7 @@
 package com.expense.manager.dao;
 
+import com.expense.manager.model.Approval;
+
 public interface ApprovalDAO
 {
     Approval getApprovalByExpenseId(int expenseId) throws Exception;
