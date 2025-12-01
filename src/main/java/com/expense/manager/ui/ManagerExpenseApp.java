@@ -1,5 +1,17 @@
 package com.expense.manager.ui;
 
+import com.expense.manager.dao.*;
+import com.expense.manager.model.Expense;
+import com.expense.manager.model.User;
+import com.expense.manager.service.AuthenticationService;
+import com.expense.manager.service.ExpenseService;
+import com.expense.manager.util.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Scanner;
+
 public class ManagerExpenseApp {
     private Scanner scanner;
     private Connection conn;
