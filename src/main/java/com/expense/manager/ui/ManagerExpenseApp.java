@@ -315,6 +315,7 @@ public class ManagerExpenseApp
 
         double total = expenseService.calculateTotal(expenses);
         System.out.println("\nTotal Expenses: $" + String.format("%.2f", total));
+        logger.info("Status report generated for " + status + " - Total: $" + String.format("%.2f", total) + ", Count: " + expenses.size());
     }
 
     private void displayExpenseSummary(Expense expense) {
@@ -327,6 +328,7 @@ public class ManagerExpenseApp
     }
 
     public void showMenu() {
+        logger.info("Manager menu started for user: " + currentUser.getUsername());
         while (true) {
             System.out.println("\n=== Manager Expense Management System ===");
             System.out.println("1. View Pending Expenses");
@@ -337,6 +339,7 @@ public class ManagerExpenseApp
 
             try {
                 int choice = Integer.parseInt(scanner.nextLine());
+                logger.fine("Menu option selected: " + choice);
 
                 switch (choice) {
                     case 1:
@@ -350,30 +353,38 @@ public class ManagerExpenseApp
                         break;
                     case 4:
                         System.out.println("Logging out...");
+                        logger.info("User logged out: " + currentUser.getUsername());
                         return;
                     default:
                         System.out.println("Invalid option. Please try again.");
+                        logger.warning("Invalid menu option selected: " + choice);
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a number.");
+                logger.warning("Invalid input in menu: " + e.getMessage());
             }
         }
     }
 
     private void cleanup() {
+        logger.info("Cleaning up resources");
         try {
             if (conn != null && !conn.isClosed())
             {
                 conn.close();
+                logger.fine("Database connection closed");
             }
             scanner.close();
+            logger.fine("Scanner closed");
         } catch (SQLException e)
         {
-            System.err.println("Error during cleanup: " + e.getMessage());
+            System.out.println("Error during cleanup: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error during cleanup", e);
         }
     }
 
     public static void main(String[] args) {
+        logger.info("=== Manager Expense Application Starting ===");
         ManagerExpenseApp app = new ManagerExpenseApp();
 
         try {
@@ -383,12 +394,15 @@ public class ManagerExpenseApp
                 app.showMenu();
             }
         } catch (SQLException e) {
-            System.err.println("Application Error: Database connection failed - " + e.getMessage());
+            System.out.println("Application Error: Database connection failed - " + e.getMessage());
+            logger.log(Level.SEVERE, "Database connection failed", e);
         } catch (Exception e) {
-            System.err.println("Application Error: " + e.getMessage());
+            System.out.println("Application Error: " + e.getMessage());
+            logger.log(Level.SEVERE, "Unexpected application error", e);
             e.printStackTrace();
         } finally {
             app.cleanup();
+            logger.info("=== Manager Expense Application Ended ===");
         }
     }
 }
