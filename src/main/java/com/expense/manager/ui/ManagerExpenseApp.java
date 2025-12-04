@@ -66,6 +66,13 @@ public class ManagerExpenseApp {
             return;
         }
 
+        // Print table header
+        String headerFormat = "%-10s %-20s %-12s %-30s %-12s %-10s%n";
+        System.out.format(headerFormat, "ID", "Employee", "Amount", "Description", "Date", "Status");
+        System.out.println("─".repeat(104));
+
+        // Print each expense as a table row
+        String rowFormat = "%-10s %-20s $%-11.2f %-30s %-12s %-10s%n";
         for (Expense expense : expenses) {
             String description = expense.getDescription();
             if (description.length() > 30) {
