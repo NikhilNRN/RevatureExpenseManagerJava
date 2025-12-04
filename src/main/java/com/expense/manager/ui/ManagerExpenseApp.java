@@ -67,14 +67,23 @@ public class ManagerExpenseApp {
         }
 
         for (Expense expense : expenses) {
-            System.out.println("\n--- Expense ID: " + expense.getId() + " ---");
-            System.out.println("Employee: " + expense.getEmployeeName());
-            System.out.println("Amount: $" + String.format("%.2f", expense.getAmount()));
-            System.out.println("Description: " + expense.getDescription());
-            System.out.println("Date: " + expense.getDate());
-            System.out.println("Status: " + expense.getStatus());
-            System.out.println("------------------------");
+            String description = expense.getDescription();
+            if (description.length() > 30) {
+                description = description.substring(0, 27) + "...";
+            }
+
+            System.out.format(rowFormat,
+                    expense.getId(),
+                    expense.getEmployeeName(),
+                    expense.getAmount(),
+                    description,
+                    expense.getDate(),
+                    expense.getStatus()
+            );
         }
+
+        System.out.println("─".repeat(104));
+        System.out.println("Total expenses: " + expenses.size());
     }
 
     public void reviewExpense() {
