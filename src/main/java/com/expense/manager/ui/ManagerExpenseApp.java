@@ -327,6 +327,7 @@ public class ManagerExpenseApp
     }
 
     public void showMenu() {
+        logger.info("Manager menu started for user: " + currentUser.getUsername());
         while (true) {
             System.out.println("\n=== Manager Expense Management System ===");
             System.out.println("1. View Pending Expenses");
