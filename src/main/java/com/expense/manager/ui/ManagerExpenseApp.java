@@ -89,12 +89,21 @@ public class ManagerExpenseApp {
                 return;
             }
 
-            System.out.println("\n=== Expense Details ===");
-            System.out.println("Employee: " + expense.getEmployeeName());
-            System.out.println("Amount: $" + String.format("%.2f", expense.getAmount()));
-            System.out.println("Description: " + expense.getDescription());
-            System.out.println("Date: " + expense.getDate());
-            System.out.println("Current Status: " + expense.getStatus());
+            // Display expense details in table format
+            System.out.println("\n=== Expense Details ===\n");
+
+            String headerFormat = "%-20s %-60s%n";
+            System.out.format(headerFormat, "Field", "Value");
+            System.out.println("─".repeat(80));
+
+            System.out.format(headerFormat, "Expense ID", expense.getId());
+            System.out.format(headerFormat, "Employee", expense.getEmployeeName());
+            System.out.format(headerFormat, "Amount", "$" + String.format("%.2f", expense.getAmount()));
+            System.out.format(headerFormat, "Description", expense.getDescription());
+            System.out.format(headerFormat, "Date", expense.getDate());
+            System.out.format(headerFormat, "Current Status", expense.getStatus());
+
+            System.out.println("─".repeat(80));
 
             System.out.print("\nDecision (1=Approve, 2=Deny, 0=Cancel): ");
             int decision = Integer.parseInt(scanner.nextLine());
